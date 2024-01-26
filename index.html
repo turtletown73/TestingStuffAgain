@@ -1,6 +1,7 @@
 <body>
   <input id="base" placeholder="3" type="number">
   <input id="result" placeholder="27" type="number">
+  <input id="accuracy" placeholder="1000" type="number">
   <button id="calculate">Calculate</button>
   <h1 id="exponent">null</h1>
 </body>
@@ -9,9 +10,15 @@
   document.getElementById("calculate").onclick = function() {
     var base = document.getElementById("base").value;
     var result = document.getElementById("result").value;
-    var attempt = Math.floor(result / base);
-    var change = base ** attempt - result;
+    var accuracy = document.getElementById("accuracy").value;
+    var attempt = 1;
+    var change = result - (base ** attempt);
 
-    alert(change);
+    while (Math.abs(change) > 1 / accuracy) {
+      attempt = attempt + change / base;
+      change = result - (base ** attempt);
+    }
+
+    document.getElementById("exponent").innerHTML = String(attempt);
   }
 </script>
